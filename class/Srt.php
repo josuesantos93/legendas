@@ -57,9 +57,9 @@ class Srt extends Subtitle
         (!isset($hour)) ? $hour = '0:' : $hour.=':';//verifica se a variavel existe
         
         
-        ($sec < 10) ? str_pad($sec,6,0,STR_PAD_LEFT) : $sec;//verifica digito do $sec e acrenta zero se for menor q 10
-        ($min < 10) ? str_pad($min,3,0,STR_PAD_LEFT) : $min;//verifica digito do $min e acrenta zero se for menor q 10
-        ($hour < 10) ? str_pad($hour,3,0,STR_PAD_LEFT) : $hour;//verifica digito do $hour e acrenta zero se for menor q 10
+        ($sec < 10) ? $sec = '0' . $sec : $sec;//verifica digito do $sec e acrenta zero se for menor q 10
+        ($min < 10) ? $min = '0' . $min : $min;//verifica digito do $min e acrenta zero se for menor q 10
+        ($hour < 10) ? $hour = '0' . $hour : $hour;//verifica digito do $hour e acrenta zero se for menor q 10
         
         //junta todas as variaves para retorno
         $time = NULL;
