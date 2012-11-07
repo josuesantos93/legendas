@@ -1,60 +1,56 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of time
- *
- * @author josue
- */
- //reformatar e refazer metodos
-class XmlToSrt implements IConversion{
-    
-    private $srt = NULL;
-    private $lang = NULL;
-    private $subtitle = NULL;
-    private $xml = NULL;
-    
-    public function __construct(IFile $file, IDisplay $subtitle){
-        $this->xml = $file;
-        $this->subtitle = $subtitle;
-    }
-    
-    public function conversionFile(){
-        $this->srt = $this->xml->getFile();       
-        
+* 
+*/
+class Srt extends Subtitle
+{
+	/*
+	//Converter entidades Srt Para Xml
+	*/
+    public function conversionXML($file_xml)
+    {
+    	$i = 1;
         $legenda = NULL;
-        $i = 1;
-        
-        foreach($this->srt AS $var):
+
+        foreach($file_xml AS $var):
             $int     = $i++;
             $start   = $this->time_rule((double)$var['start']);
             $dur     = $this->time_rule((double)$var['dur']);
             $end     = $this->time_rule((double)$var['start'] + (double)$var['dur']);
             $message = (string)$var;
             
-            $legenda[] = $this->subtitle->set_srt($int, $start, $dur, $end, $message);         
+            $legenda[] = $this->set_subtitle($int, $start, $dur, $end, $message);         
             
         endforeach;
-        
+
         return $legenda;
     }
-    
-    public function conversionLang(){
-        $this->lang = $this->xml->get_lang();
-        
-        $return = NULL;       
+
+    public function langXML(){
+    	$return = NULL;
+
         foreach($this->lang as $lang):
             $name = (string)$lang[0]['lang_original'];
             $code = (string)$lang[0]['lang_code'];
-            $return[] = $this->subtitle->set_lang($name,$code);
+            $return[] = $this->set_lang($name,$code);
         endforeach;
-        
+
         return $return;
     }
-    
+
+    /*
+    //Exibir Os Dados Apos Convertidos
+	*/
+    public function showSrt($srt, $total){
+        for($n = 0; $n < $total; $n++){
+            echo $srt[$n]['int']."\n";
+            echo $srt[$n]['start'] .' --> '.$srt[$n]['end']."\n";
+            echo $srt[$n]['message']."\n";
+            echo "\n";
+        }
+    }
+
+
     private function number_replace($sec,$min,$hour){
         (!isset($sec)) ? $sec = '0,000' : $sec;//verifica se a variavel existe
         (!isset($min)) ? $min = '0:' : $min.=':';//verifica se a variavel existe
@@ -85,6 +81,6 @@ class XmlToSrt implements IConversion{
         $sec = fmod($hour_rest, 60); // calculos dos segundos
         return $this->number_format($sec,$min,$hour);
     }
-  
+
 }
 ?>

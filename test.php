@@ -2,18 +2,19 @@
 include 'class/IDisplay.php';
 include 'class/IFile.php';
 include 'class/IConversion.php';
-include 'class/youtube.php';
-include 'class/subtitle.php';
-include 'class/xmlsrt.php';
+include 'class/Youtube.php';
+include 'class/Subtitle.php';
+include 'class/Srt.php';
+include 'class/Conversion.php';
 
-$subtitle = new SubTitle();
+$subtitle = new Srt();
 
 $openXML = new Youtube('7y2KsU_dhwI');
 $var = $openXML->setFile('pt-BR');
 
-$dat = new XmlToSrt($openXML,$subtitle);
+$dat = new Conversion($openXML,$subtitle);
 $dat1 = $dat->conversionFile();
-$subtitle->show_srt($dat1, count($dat1));
+$subtitle->showSrt($dat1, count($dat1));
 /*
 $subtitle = new SubTitle();
 

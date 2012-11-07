@@ -9,11 +9,11 @@
  *
  * @author josue
  */
- //classe revisionado
 class Youtube implements IFile{
     private $lang = NULL;
     private $srt = NULL;
     private $tube_id = NULL;
+    public  $filetype = 'XML';
 
     public function __construct($url) {
         $this->tube_id = $url;
@@ -30,12 +30,12 @@ class Youtube implements IFile{
     }
     
     public function getLang(){
-	return $this->lang;
+	   return $this->lang;
     }
     
     public function getFile(){
-	return $this->srt;    
-    }   
+	   return $this->srt;    
+    } 
     
     private function openRequest($url){
         $data = file_get_contents($url);
