@@ -26,10 +26,10 @@ class Srt extends Subtitle
         return $legenda;
     }
 
-    public function langXML(){
+    public function langXML($file){
     	$return = NULL;
 
-        foreach($this->lang as $lang):
+        foreach($file as $lang):
             $name = (string)$lang[0]['lang_original'];
             $code = (string)$lang[0]['lang_code'];
             $return[] = $this->set_lang($name,$code);

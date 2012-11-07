@@ -31,7 +31,7 @@ class Conversion implements IConversion{
     public function conversionLang(){
         $type = 'lang' . $this->file->filetype;
         $this->method_test($type);
-        $lang = $this->subtitle->$type($this->file->get_lang());
+        $lang = $this->subtitle->$type($this->file->getLang());
 
         return $lang;
     }
